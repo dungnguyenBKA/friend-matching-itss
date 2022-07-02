@@ -1,11 +1,11 @@
-import React from "react";
-import Header from "./Header";
-import TinderCards from "./TinderCards";
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import SwipeButtons from "./SwipeButtons";
-import Chats from "./Chats";
-import ChatScreen from "./ChatScreen";
+import React from 'react';
+import Header from './Header';
+import TinderCards from './TinderCards';
+import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SwipeButtons from './SwipeButtons';
+import Chats from './Chats';
+import ChatScreen from './ChatScreen';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Switch>
           <Route path="/chat/:person">
             <Header backButton="/chat" />
-            <ChatScreen/>
+            <ChatScreen />
           </Route>
           <Route path="/chat">
             <Header backButton="/" />

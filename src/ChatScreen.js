@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import "./ChatScreen.css";
+import React, { useState } from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import './ChatScreen.css';
 
 const ChatScreen = () => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
     {
-      name: "Labrador",
+      name: 'Labrador',
       image:
-        "https://gooddoggies.online/wp-content/uploads/2020/06/5-Tips-To-Training-A-Labrador-Puppy-1.jpg",
-      message: "Hey",
+        'https://gooddoggies.online/wp-content/uploads/2020/06/5-Tips-To-Training-A-Labrador-Puppy-1.jpg',
+      message: 'Hey',
     },
     {
-      name: "Labrador",
+      name: 'Labrador',
       image:
-        "https://gooddoggies.online/wp-content/uploads/2020/06/5-Tips-To-Training-A-Labrador-Puppy-1.jpg",
-      message: "Bork bork bork",
+        'https://gooddoggies.online/wp-content/uploads/2020/06/5-Tips-To-Training-A-Labrador-Puppy-1.jpg',
+      message: 'Bork bork bork',
     },
     {
-      message: "yo",
+      message: 'yo',
     },
   ]);
 
   const handleSend = (e) => {
     e.preventDefault();
     setMessages([...messages, { message: input }]);
-    setInput("");
+    setInput('');
   };
   return (
     <div className="chatScreen">

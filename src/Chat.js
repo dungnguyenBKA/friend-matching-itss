@@ -1,7 +1,7 @@
-import React from "react";
-import "./Chat.css";
-import Avatar from "@material-ui/core/Avatar";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './Chat.css';
+import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom';
 
 const Chat = ({ name, message, profilePic, timestamp }) => {
   return (

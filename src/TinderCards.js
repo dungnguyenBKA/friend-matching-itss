@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import TinderCard from "react-tinder-card";
-import "./TinderCards.css";
-import {genFriend} from "./fakedata";
+import React, { useEffect, useState } from 'react';
+import TinderCard from 'react-tinder-card';
+import './TinderCards.css';
+import { genFriend } from './fakedata';
 
 function TinderCards() {
   const [people, setPeople] = useState(genFriend());
@@ -28,16 +28,18 @@ function TinderCards() {
         {people.map((person) => (
           <TinderCard
             onCardLeftScreen={() => {
-              setPeople(people.filter(item => {
-                return item.name !== person.name
-              }))
+              setPeople(
+                people.filter((item) => {
+                  return item.name !== person.name;
+                })
+              );
             }}
             className="swipe"
             key={person.name}
-            preventSwipe={["up", "down"]}
+            preventSwipe={['up', 'down']}
           >
             <div
-              style={{backgroundImage: `url(${person.url})`}}
+              style={{ backgroundImage: `url(${person.url})` }}
               className="card"
             >
               <h3>{person.name}</h3>
