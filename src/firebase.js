@@ -1,18 +1,18 @@
-import firebase from 'firebase';
+import {initializeApp} from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBcXO_5uv_seVIevYkpddsRiaVxklBeHzk',
-  authDomain: 'tinder-clone-4cf1f.firebaseapp.com',
-  databaseURL: 'https://tinder-clone-4cf1f.firebaseio.com',
-  projectId: 'tinder-clone-4cf1f',
-  storageBucket: 'tinder-clone-4cf1f.appspot.com',
-  messagingSenderId: '474037409508',
-  appId: '1:474037409508:web:8c6a773aab9ee10bb4bef1',
-  measurementId: 'G-NZQK8P6ERW',
+  apiKey: "AIzaSyClXV_rfBjaRlXaTqe_sUfgbCFna15T-Ls",
+  authDomain: "friend-matching-itss.firebaseapp.com",
+  projectId: "friend-matching-itss",
+  storageBucket: "friend-matching-itss.appspot.com",
+  messagingSenderId: "812414362834",
+  appId: "1:812414362834:web:38dcee3e27dd804173f90b",
+  measurementId: "G-97S2THRTWT",
+  databaseURL: "https://friend-matching-itss-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
+export const database = getDatabase(firebaseApp);
 
-const database = firebaseApp.firestore();
-
-export default database;
+export default firebaseApp
