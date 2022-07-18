@@ -3,4 +3,5 @@ export default interface UserModel {
   name?: string;
   image?: string;
   passwd?: string;
+  fav?: number[];
 }
