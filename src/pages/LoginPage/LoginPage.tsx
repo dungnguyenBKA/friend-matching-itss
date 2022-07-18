@@ -1,26 +1,14 @@
-import React from 'react';
-import Column from '../../components/Column/Column';
-import useAuth from '../../hooks/useAuth';
+import Login from '../../components/RequireLogin/Login';
+import Signup from '../../components/RequireLogin/Signup';
+import React, { useState } from 'react';
 
-function LoginPage() {
-  const { signIn } = useAuth();
-  return (
-    <Column>
-      <p>Login page</p>
-      <button
-        onClick={() => {
-          signIn({
-            name: 'Dung Nguyen BKA',
-            email: 'dungg.nm@gmail.com',
-          });
-        }}
-      >
-        Demo login
-      </button>
-
-      <p>enter username, pass ....</p>
-    </Column>
+const LoginPage = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  return isLogin ? (
+    <Login setIsLogin={setIsLogin} />
+  ) : (
+    <Signup setIsLogin={setIsLogin} />
   );
-}
+};
 
 export default LoginPage;
