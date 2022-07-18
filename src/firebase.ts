@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, get, set, ref } from 'firebase/database';
+import { getDatabase, get, set, ref, remove } from 'firebase/database';
 import UserModel from './models/UserModel';
 import { cyrb53 } from './utils/utils';
 
@@ -36,6 +36,19 @@ export const verifyUser = async ({
     u.val()
   );
   return u?.passwd === user.passwd ? u : null;
+};
+
+export const updateUser = async (
+  email: string,
+  { ...user }: UserModel
+): Promise<UserModel> => {
+  const oldUser = await get(ref(database, `users/${cyrb53(email)}`)).then((u) =>
+    u.val()
+  );
+  const newUser = { ...oldUser, ...user };
+  await remove(ref(database, `users/${cyrb53(email)}`));
+  await set(ref(database, `users/${cyrb53(newUser.email)}`), newUser);
+  return newUser;
 };
 
 export default firebaseApp;
