@@ -19,15 +19,15 @@ const Signup = ({ setIsLogin }) => {
   const auth = useAuth();
 
   const [showPass, setShowPass] = useState(false);
-  const handelShowPass = () => setShowPass(!showPass);
-  const handelMouseDown = () => setShowPass(!showPass);
+  const handleShowPass = () => setShowPass(!showPass);
+  const handleMouseDown = () => setShowPass(!showPass);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [passwd, setPasswd] = useState('');
   const [hasErr, setHasErr] = useState<string | null>(null);
 
-  const handelSignup = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     const res = await addUser({ name, email, passwd });
     if (res instanceof String) {
@@ -46,7 +46,7 @@ const Signup = ({ setIsLogin }) => {
       justifyContent="center"
       style={{ minHeight: '100vh', background: '#f5f2ea' }}
     >
-      <form onSubmit={handelSignup}>
+      <form onSubmit={handleSignup}>
         <Card style={{ width: '480px' }} align-items="center">
           <CardContent>
             <Typography variant="h4" align="center">
@@ -88,8 +88,8 @@ const Signup = ({ setIsLogin }) => {
                   <InputAdornment position="end">
                     <IconButton
                       area-label="toggle password visibility"
-                      onClick={handelShowPass}
-                      onMouseDown={handelMouseDown}
+                      onClick={handleShowPass}
+                      onMouseDown={handleMouseDown}
                     >
                       {showPass ? <Visibility /> : <VisibilityOff />}
                     </IconButton>

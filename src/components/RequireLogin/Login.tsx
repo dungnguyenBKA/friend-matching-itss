@@ -18,8 +18,8 @@ const Login = ({ setIsLogin }) => {
   const auth = useAuth();
 
   const [showPass, setShowPass] = useState(false);
-  const handelShowPass = () => setShowPass(!showPass);
-  const handelMouseDown = () => setShowPass(!showPass);
+  const handleShowPass = () => setShowPass(!showPass);
+  const handleMouseDown = () => setShowPass(!showPass);
 
   const [email, setEmail] = useState('');
   const [passwd, setPasswd] = useState('');
@@ -75,8 +75,8 @@ const Login = ({ setIsLogin }) => {
                   <InputAdornment position="end">
                     <IconButton
                       area-label="toggle password visibility"
-                      onClick={handelShowPass}
-                      onMouseDown={handelMouseDown}
+                      onClick={handleShowPass}
+                      onMouseDown={handleMouseDown}
                     >
                       {showPass ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
