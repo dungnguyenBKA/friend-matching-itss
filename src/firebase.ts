@@ -51,4 +51,8 @@ export const updateUser = async (
   return newUser;
 };
 
+export const getFavs = async () => {
+  return await get(ref(database, 'favourites')).then((res) => res.val());
+};
+
 export default firebaseApp;

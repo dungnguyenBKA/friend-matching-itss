@@ -8,7 +8,11 @@ import {
   CardContent,
   Grid,
   IconButton,
+  Input,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
   Tab,
   Tabs,
   TextField,
@@ -16,7 +20,7 @@ import {
 } from '@material-ui/core';
 import { Person, Search, Visibility, VisibilityOff } from '@material-ui/icons';
 import Avatar from '../../components/Avatar';
-import { updateUser } from '../../firebase';
+import { getFavs, updateUser } from '../../firebase';
 
 const ProfilePage: React.FC = () => {
   const { user, signIn } = useAuth();
@@ -28,12 +32,20 @@ const ProfilePage: React.FC = () => {
   const [hasErr, setHasErr] = useState<string | null>(null);
   const [showPass, setShowPass] = useState(false);
   const [done, setDone] = useState(false);
+  const [favs, setFavs] = useState([]);
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email || '');
   const [passwd, setPasswd] = useState('');
   const [newPasswd, setNewPasswd] = useState('');
   const [image, setImage] = useState(user?.image);
+  const [fav, setFav] = useState(user?.fav || []);
+
+  useEffect(() => {
+    getFavs().then((favs) => {
+      setFavs(favs);
+    });
+  }, []);
 
   useEffect(() => {
     const node = header.current ? (header.current as HTMLDivElement) : null;
@@ -49,7 +61,7 @@ const ProfilePage: React.FC = () => {
   const handleChangeProfile = async (e) => {
     e.preventDefault();
     if (user) {
-      const res = await updateUser(user?.email, { name, email, image });
+      const res = await updateUser(user?.email, { name, email, image, fav });
       signIn(res);
       setDone(true);
     }
@@ -135,6 +147,25 @@ const ProfilePage: React.FC = () => {
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
                   />
+                  <div style={{ marginBottom: '1em' }} />
+                  <InputLabel id="fav">Favourites</InputLabel>
+                  <Select
+                    multiple
+                    labelId="fav"
+                    value={fav}
+                    onChange={(e) =>
+                      setFav(
+                        (e.target.value as number[]).filter((i) => i !== null)
+                      )
+                    }
+                    input={<Input />}
+                  >
+                    {favs.map((f, i) => (
+                      <MenuItem key={i} value={i}>
+                        {f}
+                      </MenuItem>
+                    ))}
+                  </Select>
                   {done && <Typography color="error">done!!</Typography>}
                 </CardContent>
                 <CardActions>
