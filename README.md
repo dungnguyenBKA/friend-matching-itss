@@ -11,5 +11,5 @@ yarn install
 yarn start
 ```
 
-## If get error with coode `error:0308010C:digital envelope routines::unsupported`
+## If get error: `error:0308010C:digital envelope routines::unsupported`
 Run command `export NODE_OPTIONS=--openssl-legacy-provider` first.
