@@ -1,5 +1,5 @@
 export function genFriend() {
-  const people = [];
+  const people = [] as any[];
   for (let i = 0; i < 20; i++) {
     people.push({
       name: 'Dung ' + i,

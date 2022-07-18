@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import './ChatScreen.css';
 
+interface Message {
+  name?: string;
+  image?: string;
+  message?: string;
+}
+
 const ChatScreen = () => {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const handleSend = (e) => {
     e.preventDefault();
-    setMessages([...messages, {message: input}]);
+    setMessages([...messages, { message: input }]);
     setInput('');
   };
   return (

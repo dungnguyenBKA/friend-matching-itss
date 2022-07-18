@@ -1,14 +1,14 @@
-import React from "react";
-import lottie from "lottie-web";
-import {LOADING_ANIM} from "../../assets/path";
-import Column from "../../components/Column/Column";
+import React from 'react';
+import lottie from 'lottie-web';
+import { LOADING_ANIM } from '../../assets/path';
+import Column from '../../components/Column/Column';
 
 const Splash: React.FC = () => {
   const loadDiv = React.useRef(null);
   React.useEffect(() => {
     if (loadDiv.current) {
       lottie.loadAnimation({
-        renderer: "svg",
+        renderer: 'svg',
         loop: true,
         autoplay: true,
         animationData: LOADING_ANIM,
@@ -16,22 +16,26 @@ const Splash: React.FC = () => {
       });
     }
     return () => {
-      lottie.destroy()
-    }
+      lottie.destroy();
+    };
   }, []);
 
-  return <Column style={{
-    height: '100vh',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }}>
-    <div
+  return (
+    <Column
       style={{
-        height: 100,
+        height: '100vh',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
-      ref={loadDiv}/>
-  </Column>;
-}
+    >
+      <div
+        style={{
+          height: 100,
+        }}
+        ref={loadDiv}
+      />
+    </Column>
+  );
+};
 
-export default Splash
-
+export default Splash;

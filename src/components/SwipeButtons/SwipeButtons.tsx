@@ -4,17 +4,15 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import IconButton from '@material-ui/core/IconButton';
 
 interface SwipeButtonsProps {
-  onRefresh: () => void,
+  onRefresh: () => void;
 }
 
 const SwipeButtons: React.FC<SwipeButtonsProps> = (props) => {
-  const {onRefresh} = props
+  const { onRefresh } = props;
   return (
     <div className="swipeButtons">
-      <IconButton
-        onClick={onRefresh}
-        className="swipeButtons__repeat">
-        <ReplayIcon fontSize="large"/>
+      <IconButton onClick={onRefresh} className="swipeButtons__repeat">
+        <ReplayIcon fontSize="large" />
       </IconButton>
     </div>
   );

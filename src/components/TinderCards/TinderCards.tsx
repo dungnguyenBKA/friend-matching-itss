@@ -1,14 +1,14 @@
 import React from 'react';
 import TinderCard from 'react-tinder-card';
 import './TinderCards.css';
-import SwipeButtons from "../SwipeButtons/SwipeButtons";
+import SwipeButtons from '../SwipeButtons/SwipeButtons';
 
 interface TinderCardsProps {
-  people: any[]
+  people: any[];
 }
 
 const TinderCards: React.FC<TinderCardsProps> = (props) => {
-  const {people} = props
+  const { people } = props;
 
   return (
     <div>
@@ -17,9 +17,10 @@ const TinderCards: React.FC<TinderCardsProps> = (props) => {
           <TinderCard
             className="swipe"
             key={person.name}
-            preventSwipe={['up', 'down']}>
+            preventSwipe={['up', 'down']}
+          >
             <div
-              style={{backgroundImage: `url(${person.url})`}}
+              style={{ backgroundImage: `url(${person.url})` }}
               className="card"
             >
               <h3>{person.name}</h3>
@@ -31,9 +32,10 @@ const TinderCards: React.FC<TinderCardsProps> = (props) => {
       <SwipeButtons
         onRefresh={() => {
           // refresh page
-        }}/>
+        }}
+      />
     </div>
   );
-}
+};
 
 export default TinderCards;

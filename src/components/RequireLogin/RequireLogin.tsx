@@ -1,23 +1,21 @@
-import React from "react";
-import useAuth from "../../hooks/useAuth";
-import LoginPage from "../../pages/LoginPage/LoginPage";
+import React from 'react';
+import useAuth from '../../hooks/useAuth';
+import LoginPage from '../../pages/LoginPage/LoginPage';
 
 interface RequireLoginProps {
   children: JSX.Element;
 }
 
 const RequireLogin: React.FC<RequireLoginProps> = (props) => {
-  const {user} = useAuth()
+  const { user } = useAuth();
   if (!user) {
-    return <LoginPage/>
+    return <LoginPage />;
   }
-  return props.children
-}
+  return props.children;
+};
 
-export default RequireLogin
+export default RequireLogin;
 
 export function wrapWithLoginRequire(page: JSX.Element) {
-  return <RequireLogin>
-    {page}
-  </RequireLogin>
+  return <RequireLogin>{page}</RequireLogin>;
 }

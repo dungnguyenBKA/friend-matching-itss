@@ -1,26 +1,26 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import UserModel from "../../models/UserModel";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import UserModel from '../../models/UserModel';
 
 interface AuthData {
-  user?: UserModel
+  user?: UserModel;
 }
 
 const initData: AuthData = {
-  user: undefined
-}
+  user: undefined,
+};
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: initData,
   reducers: {
     signIn(state, payload: PayloadAction<AuthData>) {
-      return payload.payload
+      return payload.payload;
     },
     signOut() {
-      return initData
-    }
-  }
-})
+      return initData;
+    },
+  },
+});
 
-export const {signIn, signOut} = userSlice.actions
-export default userSlice.reducer
+export const { signIn, signOut } = userSlice.actions;
+export default userSlice.reducer;
