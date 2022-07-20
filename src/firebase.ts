@@ -1,7 +1,7 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase, get, set, ref, remove } from 'firebase/database';
+import {initializeApp} from 'firebase/app';
+import {get, getDatabase, ref, remove, set} from 'firebase/database';
 import UserModel from './models/UserModel';
-import { cyrb53 } from './utils/utils';
+import {cyrb53} from './utils/utils';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyClXV_rfBjaRlXaTqe_sUfgbCFna15T-Ls',
@@ -30,8 +30,8 @@ export const addUser = async (user: UserModel): Promise<UserModel | String> => {
 };
 
 export const verifyUser = async ({
-  ...user
-}: UserModel): Promise<UserModel | null> => {
+                                   ...user
+                                 }: UserModel): Promise<UserModel | null> => {
   const u = await get(ref(database, `users/${cyrb53(user.email)}`)).then((u) =>
     u.val()
   );
@@ -40,12 +40,12 @@ export const verifyUser = async ({
 
 export const updateUser = async (
   email: string,
-  { ...user }: UserModel
+  {...user}: UserModel
 ): Promise<UserModel> => {
   const oldUser = await get(ref(database, `users/${cyrb53(email)}`)).then((u) =>
     u.val()
   );
-  const newUser = { ...oldUser, ...user };
+  const newUser = {...oldUser, ...user};
   await remove(ref(database, `users/${cyrb53(email)}`));
   await set(ref(database, `users/${cyrb53(newUser.email)}`), newUser);
   return newUser;
@@ -53,6 +53,10 @@ export const updateUser = async (
 
 export const getFavs = async () => {
   return await get(ref(database, 'favourites')).then((res) => res.val());
+};
+
+export const getAllUsers = async () => {
+  return (await get(ref(database, 'users'))).val();
 };
 
 export default firebaseApp;

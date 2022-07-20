@@ -1,40 +1,44 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { database } from './firebase';
-import { get, ref } from 'firebase/database';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import ChatListPage from './pages/ChatListPage/ChatListPage';
 import ChatDetailPage from './pages/ChatDetailPage/ChatDetailPage';
-import { wrapWithLoginRequire } from './components/RequireLogin/RequireLogin';
+import {wrapWithLoginRequire} from './components/RequireLogin/RequireLogin';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import useAuth from "./hooks/useAuth";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 function App() {
-  async function getData() {
-    try {
-      const rootRef = ref(database);
-      const res = await get(rootRef);
-      console.log('root', res.val());
-    } catch (e) {
-      console.error(e);
-    } finally {
-    }
-  }
+  const {user} = useAuth()
 
-  useEffect(() => {
-    getData().finally(() => {});
-  }, []);
+  const isAdmin = user?.email === "admin@finder.com"
 
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/chat/:person">
-            {wrapWithLoginRequire(<ChatDetailPage />)}
-          </Route>
-          <Route path="/chat">{wrapWithLoginRequire(<ChatListPage />)}</Route>
-          <Route path="/profile">{wrapWithLoginRequire(<ProfilePage />)}</Route>
-          <Route path="/">{wrapWithLoginRequire(<HomePage />)}</Route>
+          {
+            isAdmin ?
+              <>
+                <Route path="/admin">{wrapWithLoginRequire(<AdminPage/>)}</Route>
+                <Route path="/">
+                  <Redirect to="/admin" />
+                </Route>
+              </>
+              :
+              <>
+                <Route path="/chat/:person">
+                  {wrapWithLoginRequire(<ChatDetailPage/>)}
+                </Route>
+                <Route path="/chat">{wrapWithLoginRequire(<ChatListPage/>)}</Route>
+                <Route path="/profile">{wrapWithLoginRequire(<ProfilePage/>)}</Route>
+                <Route path="/">{wrapWithLoginRequire(<HomePage/>)}</Route>
+                <Route path="/admin">
+                  <Redirect to="/" />
+                </Route>
+              </>
+          }
         </Switch>
       </BrowserRouter>
     </div>

@@ -14,7 +14,7 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate
         onBeforeLift={async () => {
-          await sleep(1000);
+          //await sleep(500);
         }}
         loading={<Splash />}
         persistor={persist}
