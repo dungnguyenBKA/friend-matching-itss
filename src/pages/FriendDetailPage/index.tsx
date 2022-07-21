@@ -17,7 +17,7 @@ import UserModel from '../../models/UserModel';
 import { cyrb53 } from '../../utils/utils';
 
 const FriendDetailPage = () => {
-  const { user: curUser } = useAuth();
+  const { user: curUser, signIn } = useAuth();
 
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
@@ -49,13 +49,15 @@ const FriendDetailPage = () => {
 
   const handleBookmark = () => {
     if (bookmarked) {
-      removeBookmark(cyrb53(curUser?.email || ''), id).then(() =>
-        setBookmarked(!bookmarked)
-      );
+      removeBookmark(cyrb53(curUser?.email || ''), id).then((newUser) => {
+        setBookmarked(!bookmarked);
+        newUser && signIn(newUser);
+      });
     } else {
-      addBookmark(cyrb53(curUser?.email || ''), id).then(() =>
-        setBookmarked(!bookmarked)
-      );
+      addBookmark(cyrb53(curUser?.email || ''), id).then((newUser) => {
+        setBookmarked(!bookmarked);
+        newUser && signIn(newUser);
+      });
     }
   };
 

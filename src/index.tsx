@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { persist, store } from './store/store';
 import Splash from './pages/Splash/Splash';
-import { sleep } from './utils/utils';
 
 ReactDOM.render(
   <React.StrictMode>

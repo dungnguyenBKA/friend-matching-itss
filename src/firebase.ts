@@ -23,6 +23,7 @@ export const addUser = async (user: UserModel): Promise<UserModel | String> => {
     u.val()
   );
   if (u) {
+    // eslint-disable-next-line
     return new String('email existed');
   }
   await set(ref(database, `users/${cyrb53(user.email)}`), user);
@@ -56,36 +57,40 @@ export const getFavs = async () => {
 };
 
 export const getAllUsers = async (): Promise<UserModel[]> => {
-  return (await get(ref(database, 'users'))).val();
+  const userModels = (await get(ref(database, 'users'))).val();
+  return Object.keys(userModels).map((k) => userModels[k]);
 };
 
 export const getUser = async (id: string): Promise<UserModel> => {
   return (await get(ref(database, `users/${id}`))).val();
 };
 
-export const addBookmark = async (id: string, to: string): Promise<boolean> => {
+export const addBookmark = async (
+  id: string,
+  to: string
+): Promise<UserModel | null> => {
   const user = await getUser(id);
   if (!user) {
-    return false;
+    return null;
   }
 
-  const oldBookmarks = user.bookmarks || [];
+  const oldBookmarks = (user.bookmarks || []).filter((i) => i !== to);
 
   const res = await updateUser(user.email, {
     ...user,
     bookmarks: [...oldBookmarks, to],
   });
 
-  return !!res;
+  return res;
 };
 
 export const removeBookmark = async (
   id: string,
   to: string
-): Promise<boolean> => {
+): Promise<UserModel | null> => {
   const user = await getUser(id);
   if (!user) {
-    return false;
+    return null;
   }
 
   const oldBookmarks = user.bookmarks || [];
@@ -95,7 +100,7 @@ export const removeBookmark = async (
     bookmarks: oldBookmarks.filter((uid) => uid !== to),
   });
 
-  return !!res;
+  return res;
 };
 
 export default firebaseApp;
