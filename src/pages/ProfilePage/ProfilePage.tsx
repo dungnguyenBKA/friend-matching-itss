@@ -114,7 +114,7 @@ const ProfilePage: React.FC = () => {
             <form onSubmit={handleChangeProfile}>
               <Card style={{ minWidth: '420px' }} align-items="center">
                 <CardContent>
-                  {image ? <Avatar src={image} size={100} /> : <Person />}
+                  <Avatar src={image} size={100} />
                   <Typography variant="h4" align="center">
                     {user?.name}
                   </Typography>
