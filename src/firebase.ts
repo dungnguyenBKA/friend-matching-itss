@@ -65,13 +65,32 @@ export const getUser = async (id: string): Promise<UserModel> => {
   return (await get(ref(database, `users/${id}`))).val();
 };
 
+/**
+ * false: id user invalid
+ * true: to user invalid
+ * null: not found user
+ * userModel: success;
+ */
 export const addBookmark = async (
   id: string,
   to: string
-): Promise<UserModel | null> => {
+): Promise<UserModel | null | boolean> => {
   const user = await getUser(id);
   if (!user) {
     return null;
+  }
+
+  const toUser = await getUser(to);
+  if (!user) {
+    return null;
+  }
+
+  if (user.isLock) {
+    return false;
+  }
+
+  if (toUser.isLock) {
+    return true;
   }
 
   const oldBookmarks = (user.bookmarks || []).filter((i) => i !== to);

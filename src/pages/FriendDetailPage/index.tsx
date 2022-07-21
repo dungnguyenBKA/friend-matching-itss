@@ -25,6 +25,7 @@ const FriendDetailPage = () => {
 
   const [favs, setFavs] = useState([]);
   const [bookmarked, setBookmarked] = useState(false);
+  const [hasErr, setErr] = useState<string | null>(null);
 
   useEffect(() => {
     getFavs().then((favs) => {
@@ -35,6 +36,12 @@ const FriendDetailPage = () => {
   useEffect(() => {
     getUser(id).then((u) => setUser(u));
   }, [id]);
+
+  useEffect(() => {
+    if (hasErr) {
+      setTimeout(() => setErr(null), 2000);
+    }
+  }, [hasErr]);
 
   useEffect(() => {
     if (user === null) history.replace('/');
@@ -50,13 +57,21 @@ const FriendDetailPage = () => {
   const handleBookmark = () => {
     if (bookmarked) {
       removeBookmark(cyrb53(curUser?.email || ''), id).then((newUser) => {
-        setBookmarked(!bookmarked);
-        newUser && signIn(newUser);
+        if (newUser) {
+          signIn(newUser);
+          setBookmarked(!bookmarked);
+        }
       });
     } else {
       addBookmark(cyrb53(curUser?.email || ''), id).then((newUser) => {
-        setBookmarked(!bookmarked);
-        newUser && signIn(newUser);
+        if (newUser === false) {
+          setErr('You have been blocked by admin');
+        } else if (newUser === true) {
+          setErr('This user has been blocked by admin');
+        } else if (newUser) {
+          signIn(newUser);
+          setBookmarked(!bookmarked);
+        }
       });
     }
   };
@@ -99,6 +114,7 @@ const FriendDetailPage = () => {
                 contentEditable={false}
               />
               <div style={{ marginBottom: '1em' }} />
+              {hasErr && <Typography color="error">{hasErr}!!</Typography>}
             </CardContent>
             <CardActions>
               <Button
