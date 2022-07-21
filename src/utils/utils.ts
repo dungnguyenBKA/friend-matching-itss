@@ -23,3 +23,29 @@ export const cyrb53 = (key: string, seed = 0): string => {
 
   return (E * (F & h2) + (h1 >>> 0)).toString();
 };
+
+export const findMaxLength = (A: Array<any>, B: Array<any>) => {
+  const n = A.length;
+  const m = B.length;
+
+  let dp = new Array(n + 1);
+  for (let i = 0; i <= n; i++) {
+    dp[i] = new Array(m + 1);
+    for (let j = 0; j <= m; j++) dp[i][j] = 0;
+  }
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      if (A[i] === B[j]) dp[j][i] = dp[j + 1][i + 1] + 1;
+    }
+  }
+  let maxm = 0;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      maxm = Math.max(maxm, dp[i][j]);
+    }
+  }
+
+  return maxm;
+};
