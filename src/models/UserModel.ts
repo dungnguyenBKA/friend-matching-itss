@@ -4,5 +4,7 @@ export default interface UserModel {
   image?: string;
   passwd?: string;
   fav?: number[];
-  isLock?: boolean
+  about?: string;
+  bookmarks?: string[];
+  isLock?: boolean;
 }

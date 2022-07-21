@@ -16,6 +16,7 @@ const Avatar = ({ src, size }: { src?: string; size?: number }) => {
       {src ? (
         <img
           src={src}
+          alt=""
           style={{
             height: '100%',
             width: 'auto',

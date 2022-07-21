@@ -8,6 +8,7 @@ import { wrapWithLoginRequire } from './components/RequireLogin/RequireLogin';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import useAuth from './hooks/useAuth';
 import AdminPage from './pages/AdminPage/AdminPage';
+import FriendDetailPage from './pages/FriendDetailPage';
 
 function App() {
   const { user } = useAuth();
@@ -30,7 +31,7 @@ function App() {
               <Route path="/chat/:person">
                 {wrapWithLoginRequire(<ChatDetailPage />)}
               </Route>
-              <Route path="/chat">
+              <Route path="/chat" exact>
                 {wrapWithLoginRequire(<ChatListPage />)}
               </Route>
               <Route path="/profile">
@@ -38,6 +39,9 @@ function App() {
               </Route>
               <Route path="/" exact>
                 {wrapWithLoginRequire(<HomePage />)}
+              </Route>
+              <Route path="/friend/:id">
+                {wrapWithLoginRequire(<FriendDetailPage />)}
               </Route>
               <Route path="/admin">
                 <Redirect to="/" />

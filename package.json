@@ -47,5 +47,8 @@
     "singleQuote": true,
     "tabWidth": 2,
     "semi": true
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
   }
 }
