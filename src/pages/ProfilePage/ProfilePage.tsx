@@ -40,6 +40,7 @@ const ProfilePage: React.FC = () => {
   const [newPasswd, setNewPasswd] = useState('');
   const [image, setImage] = useState(user?.image);
   const [fav, setFav] = useState(user?.fav || []);
+  const [about, setAbout] = useState(user?.about || '');
 
   useEffect(() => {
     getFavs().then((favs) => {
@@ -61,7 +62,13 @@ const ProfilePage: React.FC = () => {
   const handleChangeProfile = async (e) => {
     e.preventDefault();
     if (user) {
-      const res = await updateUser(user?.email, { name, email, image, fav });
+      const res = await updateUser(user?.email, {
+        name,
+        email,
+        image,
+        fav,
+        about,
+      });
       signIn(res);
       setDone(true);
     }
@@ -146,6 +153,16 @@ const ProfilePage: React.FC = () => {
                     type="text"
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
+                  />
+                  <TextField
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    label="About me"
+                    type="text"
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                    multiline
                   />
                   <div style={{ marginBottom: '1em' }} />
                   <InputLabel id="fav">Favourites</InputLabel>
